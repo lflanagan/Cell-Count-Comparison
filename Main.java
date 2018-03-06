@@ -29,41 +29,90 @@ public class Main {
 				NominalCellVoltage = 3.70, //The voltage of each cell at nominal voltage.
 				Wh80 = 0,
 				mAh80 = 0;
+		String response = null,
+				response1 = null,
+				response2 = null,
+				response3 = null,
+				response4 = null,
+				response5 = null,
+				response6 = null;		
+		
 		//Enter Values
+		
 		System.out.println("Enter the Kv of the motor: ");
+
+		while(!input.hasNextInt()) {
+			System.out.println("Invalid Input. Please enter the Kv of the motor: ");
+			input.next();
+		}
         Kv = input.nextInt();
-        System.out.println("Enter the cell count of the LiPo Battery: ");
+		
+		System.out.println("Enter the cell count of the LiPo Battery: ");
+
+        while(!input.hasNextInt()) {
+    		System.out.println("Invalid input. Please Enter the cell count of the LiPo Battery: ");
+			input.next();
+		}
         CellCount = input.nextInt();
-        System.out.println("Is the charged voltage of each cell 4.20 volts? (yes/no)");
-        String response = input.next();
-        
-        //Learned .equalsIgnoreCase from a friend.
-        
-        if(response.equalsIgnoreCase("yes")){
-            CellVoltage = 4.20;
+		       
+    	System.out.println("Is the charged voltage of each cell 4.20 volts? (yes/no)");
+        response = input.next();
+
+        while(!response.equalsIgnoreCase("yes") && !response.equalsIgnoreCase("no")) {
+        	System.out.println("Invalid Input. Is the charged voltage of each cell 4.20 volts? (yes/no)");
+            response = input.next(); 
         }
-        else if(response.equalsIgnoreCase("no")){
-            System.out.println("Enter the voltage of the cells: ");
-            CellVoltage = input.nextDouble();
+        	if(response.equalsIgnoreCase("yes")) {
+        		CellVoltage = 4.20;
+            }
+        	       
+        	else if(response.equalsIgnoreCase("no")){
+        		System.out.println("Enter the voltage of the cells: ");
+        		
+        		while(!input.hasNextDouble()) {
+        	    		System.out.println("Invalid input. Enter the voltage of the cells: ");
+        				input.next();		
+        		}
+        		CellVoltage = input.nextDouble();
         }
+       
         System.out.println("Would you like to calculate the Watt Hours of your Battery? (yes/no)");
-        String response1 = input.next();
-        
-        if(response1.equalsIgnoreCase("yes")){
-        	System.out.println("Enter the number of miliamp hours in your battery: ");
-        	  mAh = input.nextInt();
-        	System.out.println("Would you like to calculate the estimated run time of your Battery? (yes/no)");
-              String response2 = input.next();
-            if(response2.equalsIgnoreCase("yes")){
-            	Watts = 200;
-            }
-            else if(response2.equalsIgnoreCase("no")){
-            	Watts  = 0;
-            }
-        }
-        else if(response1.equalsIgnoreCase("no")){
-             mAh = 0; 
-        }
+    	response1 = input.next();
+    	
+    	while(!response1.equalsIgnoreCase("yes") && !response1.equalsIgnoreCase("no")) { 
+    		System.out.println("Invalid Input. Would you like to calculate the Watt Hours of your Battery? (yes/no)");   
+    		response1 = input.next();
+    	}
+    		
+            if(response1.equalsIgnoreCase("yes")){
+    	        
+            	System.out.println("Enter the number of miliamp hours in your battery: ");
+
+            	while(!input.hasNextInt()) {
+    	        		System.out.println("Invalid Input. Enter the number of miliamp hours in your battery: ");
+    	        		input.next();
+    	        	}
+        		mAh = input.nextInt();
+
+    	        		System.out.println("Would you like to calculate the estimated run time of your Battery? (yes/no)");
+    	        		response2 = input.next();
+      	            	
+    	        		while(!response2.equalsIgnoreCase("yes") && !response2.equalsIgnoreCase("no")) { 
+    	        			System.out.println("Invalid Input. Would you like to calculate the estimated run time of your Battery? (yes/no)");
+        	        		response2 = input.next();
+    	        		
+    	        			if(response2.equalsIgnoreCase("yes")){
+      	            			Watts = 200;
+    	        		}
+      	            		else if(response2.equalsIgnoreCase("no")){
+      	            			Watts  = 0;
+      	            	}
+    	        	}
+    			}
+    		else if(response1.equalsIgnoreCase("no")){
+	             mAh = 0; 
+	        }   	
+         
         //Do Math
         
         PackVoltage = (CellVoltage * CellCount);
@@ -120,7 +169,12 @@ public class Main {
         }
       
         System.out.println("Would you like to compare these results with another Motor + Battery combonation? (yes/no)");
-        String response3 = input.next();
+        response3 = input.next();
+    	
+    	while(!response3.equalsIgnoreCase("yes") && !response3.equalsIgnoreCase("no")) { 
+    		System.out.println("Invalid Input. Would you like to compare these results with another Motor + Battery combonation? (yes/no)");   
+    		response3 = input.next();
+    	}
         
         if(response3.equals("yes")){
         	Scanner input1 = new Scanner(System.in);
@@ -145,39 +199,79 @@ public class Main {
     		
     		//Enter Values
     		System.out.println("Enter the Kv of the motor: ");
+
+    		while(!input1.hasNextInt()) {
+    			System.out.println("Invalid Input. Please enter the Kv of the motor: ");
+    			input1.next();
+    		}
             Kv1 = input1.nextInt();
-            System.out.println("Enter the cell count of the LiPo Battery: ");
+    		
+    		System.out.println("Enter the cell count of the LiPo Battery: ");
+
+            while(!input1.hasNextInt()) {
+        		System.out.println("Invalid input. Please Enter the cell count of the LiPo Battery: ");
+    			input.next();
+    		}
             CellCount1 = input1.nextInt();
-            System.out.println("Is the charged voltage of each cell 4.20 volts? (yes/no)");
-            String response4 = input1.next();
-            
-            //Learned .equalsIgnoreCase from a friend.
-            
-            if(response4.equalsIgnoreCase("yes")){
-                CellVoltage1 = 4.20;
+    		       
+        	System.out.println("Is the charged voltage of each cell 4.20 volts? (yes/no)");
+            response4 = input1.next();
+
+            while(!response4.equalsIgnoreCase("yes") && !response4.equalsIgnoreCase("no")) {
+            	System.out.println("Invalid Input. Is the charged voltage of each cell 4.20 volts? (yes/no)");
+                response4 = input1.next(); 
             }
-            else if(response4.equalsIgnoreCase("no")){
-                System.out.println("Enter the voltage of the cells: ");
-                CellVoltage1 = input1.nextDouble();
+            	if(response4.equalsIgnoreCase("yes")) {
+            		CellVoltage1 = 4.20;
+                }
+            	       
+            	else if(response4.equalsIgnoreCase("no")){
+            		System.out.println("Enter the voltage of the cells: ");
+            		
+            		while(!input1.hasNextDouble()) {
+            	    		System.out.println("Invalid input. Enter the voltage of the cells: ");
+            				input1.next();		
+            		}
+            		CellVoltage1 = input1.nextDouble();
             }
+           
             System.out.println("Would you like to calculate the Watt Hours of your Battery? (yes/no)");
-            String response5 = input1.next();
-            
-            if(response5.equalsIgnoreCase("yes")){
-            	System.out.println("Enter the number of miliamp hours in your battery: ");
-            	  mAh1 = input1.nextInt();
-            	System.out.println("Would you like to calculate the estimated run time of your Battery? (yes/no)");
-                  String response6 = input1.next();
-                if(response6.equalsIgnoreCase("yes")){
-                	Watts1 = 200;
-                }
-                else if(response6.equalsIgnoreCase("no")){
-                	Watts = 0;
-                }
-            }
-            else if(response5.equalsIgnoreCase("no")){
-                 mAh1 = 0; 
-            }
+        	response5 = input1.next();
+        	
+        	while(!response5.equalsIgnoreCase("yes") && !response5.equalsIgnoreCase("no")) { 
+        		
+        		System.out.println("Invalid Input. Would you like to calculate the Watt Hours of your Battery? (yes/no)");
+                response5 = input1.next();
+        		
+                if(response5.equalsIgnoreCase("yes")){
+        	        
+                	System.out.println("Enter the number of miliamp hours in your battery: ");
+
+                	while(!input1.hasNextInt()) {
+        	        		System.out.println("Invalid Input. Enter the number of miliamp hours in your battery: ");
+        	        		input1.next();
+        	        	}
+            		mAh = input1.nextInt();
+            		
+        	        		System.out.println("Would you like to calculate the estimated run time of your Battery? (yes/no)");
+        	        		response6 = input1.next();
+          	            	
+        	        		while(!response6.equalsIgnoreCase("yes") && !response6.equalsIgnoreCase("no")) { 
+        	        			System.out.println("Invalid Input. Would you like to calculate the estimated run time of your Battery? (yes/no)");
+            	        		response6 = input1.next();
+        	        		
+        	        			if(response6.equalsIgnoreCase("yes")){
+          	            			Watts1 = 200;
+        	        		}
+          	            		else if(response6.equalsIgnoreCase("no")){
+          	            			Watts1  = 0;
+          	            	}
+        	        	}
+        			}
+        		else if(response5.equalsIgnoreCase("no")){
+    	             mAh1 = 0; 
+    	        }   	
+             }
             //Do Math
             
             PackVoltage1 = (CellVoltage1 * CellCount1);
