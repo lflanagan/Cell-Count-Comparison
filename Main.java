@@ -27,8 +27,8 @@ public class Main {
 				CellVoltage = 0, //The voltage of each cell, usually 4.20, but is higher on some batteries.
 				BatteryLifeMin = 0, //The length the battery will last in minutes when provided with a constant discharge rate.
 				NominalCellVoltage = 3.70, //The voltage of each cell at nominal voltage.
-				Wh80 = 0,
-				mAh80 = 0;
+				Wh80 = 0, //80% of the total watt hours in the battery.
+				mAh80 = 0; //80% of the total mAh in the battery.
 		String response = null,
 				response1 = null,
 				response2 = null,
@@ -41,12 +41,16 @@ public class Main {
 		
 		System.out.println("Enter the Kv of the motor: ");
 
+		//Enter KV
+		
 		while(!input.hasNextInt()) {
 			System.out.println("Invalid Input. Please enter the Kv of the motor: ");
 			input.next();
 		}
         Kv = input.nextInt();
 		
+        //Enter Cell Count of battery
+        
 		System.out.println("Enter the cell count of the LiPo Battery: ");
 
         while(!input.hasNextInt()) {
@@ -54,6 +58,8 @@ public class Main {
 			input.next();
 		}
         CellCount = input.nextInt();
+        
+        //Clarify that cell voltage is 4.20
 		       
     	System.out.println("Is the charged voltage of each cell 4.20 volts? (yes/no)");
         response = input.next();
@@ -76,6 +82,8 @@ public class Main {
         		CellVoltage = input.nextDouble();
         }
        
+        //Asks weather the user wants to calculate the Watt Hours in their battery
+        	
         System.out.println("Would you like to calculate the Watt Hours of your Battery? (yes/no)");
     	response1 = input.next();
     	
@@ -85,6 +93,8 @@ public class Main {
     	}
     		
             if(response1.equalsIgnoreCase("yes")){
+            	
+            	//Asks for mAh of battery if the user wants to calculate watt hours
     	        
             	System.out.println("Enter the number of miliamp hours in your battery: ");
 
@@ -94,6 +104,8 @@ public class Main {
     	        	}
         		mAh = input.nextInt();
 
+        			//Calculates estimated runtime of battery if user replies "yes"
+        		
     	        		System.out.println("Would you like to calculate the estimated run time of your Battery? (yes/no)");
     	        		response2 = input.next();
       	            	
@@ -102,7 +114,7 @@ public class Main {
         	        		response2 = input.next();
     	        		
     	        			if(response2.equalsIgnoreCase("yes")){
-      	            			Watts = 200;
+    	        				Watts = 200;
     	        		}
       	            		else if(response2.equalsIgnoreCase("no")){
       	            			Watts  = 0;
@@ -135,18 +147,30 @@ public class Main {
         
         MaxRPM = PackVoltage * Kv;
         MinRPM = NominalPackVoltage * Kv;        
+       
+        //Combo 1 Results
         
         System.out.println("------");
         System.out.println("The theoretical RPM of your motors (" + Kv + " Kv) with a fully charged " + CellCount + " cell LiPo (" + PackVoltage + " Volts) is " + MaxRPM + " RPM");
         System.out.println("The theoretical RPM of your motors (" + Kv + " Kv) with a nominal voltage " + CellCount + " cell LiPo (" + NominalPackVoltage + " Volts) is " + MinRPM + " RPM");
         System.out.println("------");
+        
+        //Prints watt hours if user has asked for it 
+        
         if(Wh > 0) {System.out.println("The Watt Hours of a Fully Charged " + mAh + "mAh, " + CellCount + " cell LiPo (" + PackVoltage + " Volts) is " + Wh + " Watt Hours");
         System.out.println("------");
+        
+        //Prints run time if user asks for it
+        
         if(Watts > 0) {
         	System.out.println("A battery of " + Wh + " Watt hours that is drained of rougly 80% of it's full capacity should last...");
         	while (Watts <= 600)
              {
-        		mAh80 = (int)(mAh*(80/100.0f)); //Learned how to write find % command from stack overflow
+        		//Finds 80% of mAh
+        		
+        		mAh80 = (int)(mAh*(80/100.0f)); 
+        		
+        		//Finds watt hours based off how many mAh were consumed
         		
         		Wh80 = mAh80 * PackVoltage / 1000;
       
@@ -160,10 +184,15 @@ public class Main {
 
         	    System.out.println(BatteryLifeMin + " Minutes, at a constant discharge of " + Watts + " watts. (@" + PackVoltage + " volts and " + Amp + " Amps)" );
         	     
+        	   //Increases wattage by 100 every loop, showing different run times and amp draw, but keeping the voltage constant 
+        	    //*the run time isn't 100% realistic as batteries decrease in voltage as their capacity is consumed however simulating voltage sag isn't easy)*
         	    Watts = Watts + 100;
         	     
              	}
         	 System.out.println("------");
+        	 
+        	 //Sets watts back at 200, so if the user decides to test another combonation, it can do the same math again.
+        	 
         	 Watts = 200;
         	}
         }
@@ -179,7 +208,9 @@ public class Main {
         if(response3.equals("yes")){
         	Scanner input1 = new Scanner(System.in);
     		
-    		int Kv1 = 0, //Kv of the motor (Kv = RPM per Volt - A motor that's 2300 Kv would spin 2300 times per minute when given 1 volt, under no load.)
+    		//Setting new variales for combo 2, so we can refer to variables from combo 1 and combo 2.
+        	
+        	int Kv1 = 0, //Kv of the motor (Kv = RPM per Volt - A motor that's 2300 Kv would spin 2300 times per minute when given 1 volt, under no load.)
     				CellCount1 = 0, //Cell count of the battery (The amount of cells in the user's LiPo battery.)
     				mAh1 = 0; //Miliamp hours (The capacity of the user's LiPo Battery)
     		
@@ -194,10 +225,15 @@ public class Main {
     				CellVoltage1 = 0, //The voltage of each cell, usually 4.20, but is higher on some batteries.
     				BatteryLifeMin1 = 0, //The length the battery will last in minutes when provided with a constant discharge rate.
     				NominalCellVoltage1 = 3.70, //The voltage of each cell at nominal voltage.
-    				Wh801 = 0,
-    				mAh801 = 0;
+    				Wh801 = 0, //80% of the total watt hours in the battery.
+    				mAh801 = 0, //80% of the total mAh in the battery.
+    				RPMCompare = 0, //Compare rpm of both combonations
+    				WhCompare = 0; //Compare Watt hours of both combonations.
     		
     		//Enter Values
+    		
+    		//Same code as before, but done again for combo 2 (variables have a 1 takcked on the end)
+    		
     		System.out.println("Enter the Kv of the motor: ");
 
     		while(!input1.hasNextInt()) {
@@ -305,7 +341,7 @@ public class Main {
             	System.out.println("The first battery of " + Wh + " Watt hours that is drained of rougly 80% of it's full capacity should last...");
             	while (Watts <= 600)
                  {
-            		mAh80 = (int)(mAh*(80/100.0f)); //Learned how to write find % command from stack overflow
+            		mAh80 = (int)(mAh*(80/100.0f));
             		
             		Wh80 = mAh80 * PackVoltage / 1000;
           
@@ -336,7 +372,7 @@ public class Main {
             	System.out.println("The first battery of " + Wh1 + " Watt hours that is drained of rougly 80% of it's full capacity should last...");
             	while (Watts1 <= 600)
                  {
-            		mAh801 = (int)(mAh1*(80/100.0f)); //Learned how to write find % command from stack overflow
+            		mAh801 = (int)(mAh1*(80/100.0f));
             		
             		Wh801 = mAh801 * PackVoltage1 / 1000;
           
@@ -356,11 +392,39 @@ public class Main {
             	 Watts1 = 200;
             	}
             }
+            
+            response = input.next();
+
+            while(!response.equalsIgnoreCase("yes") && !response.equalsIgnoreCase("no")) {
+            	System.out.println("Invalid Input. Would you like to automatically compare the two combonations? (yes/no)");
+                response = input.next(); 
+            }            System.out.println("Would you like to automatically compare the two combonations? (yes/no)");
+
+            	if(response.equalsIgnoreCase("yes")) {
+            		if(Wh>Wh1) {
+            			WhCompare = Wh - Wh1;
+                    	System.out.println("The first battery is " + WhCompare + " Watt Hours greater than seccond battery");
+            		}
+            		if(Wh1>Wh) {
+            			WhCompare = Wh1 - Wh;
+                		System.out.println("The secconds battery is " + WhCompare + " Watt Hours greater than first battery");
+                    if(MaxRPM > MaxRPM1) {
+                    	RPMCompare = MaxRPM - MaxRPM1;
+                        System.out.println("The first battery is " + RPMCompare + " RPM greater than seccond battery");
+                	}
+                	if(MaxRPM1 > MaxRPM) {
+                    	RPMCompare = MaxRPM1 - MaxRPM;
+                        System.out.println("The secconds battery is " + RPMCompare + " RPM greater than first battery");
+            		}
+            	}
+            	      
+            
             System.out.println("------");
             System.out.println("Thanks for using my program.");
-            }
+              }
             else if(response3.equals("no")){
             System.out.println("Thanks for using my program.");
               }      
          }
 	}
+}	
