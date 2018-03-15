@@ -108,7 +108,14 @@ public class Main {
         		
     	        		System.out.println("Would you like to calculate the estimated run time of your Battery? (yes/no)");
     	        		response2 = input.next();
-      	            	
+
+    	        		if(response2.equalsIgnoreCase("yes")) {
+					Watts = 200;
+				}
+
+						else if(response2.equalsIgnoreCase("no")){
+					Watts  = 0;
+				}
     	        		while(!response2.equalsIgnoreCase("yes") && !response2.equalsIgnoreCase("no")) { 
     	        			System.out.println("Invalid Input. Would you like to calculate the estimated run time of your Battery? (yes/no)");
         	        		response2 = input.next();
@@ -149,8 +156,8 @@ public class Main {
         MinRPM = NominalPackVoltage * Kv;        
        
         //Combo 1 Results
-        
-        System.out.println("------");
+
+		System.out.println("------");
         System.out.println("The theoretical RPM of your motors (" + Kv + " Kv) with a fully charged " + CellCount + " cell LiPo (" + PackVoltage + " Volts) is " + MaxRPM + " RPM");
         System.out.println("The theoretical RPM of your motors (" + Kv + " Kv) with a nominal voltage " + CellCount + " cell LiPo (" + NominalPackVoltage + " Volts) is " + MinRPM + " RPM");
         System.out.println("------");
@@ -246,11 +253,14 @@ public class Main {
 
             while(!input1.hasNextInt()) {
         		System.out.println("Invalid input. Please Enter the cell count of the LiPo Battery: ");
-    			input.next();
-    		}
-            CellCount1 = input1.nextInt();
-    		       
-        	System.out.println("Is the charged voltage of each cell 4.20 volts? (yes/no)");
+    			input1.next();
+
+			}
+
+			CellCount1 = input1.nextInt();
+
+
+			System.out.println("Is the charged voltage of each cell 4.20 volts? (yes/no)");
             response4 = input1.next();
 
             while(!response4.equalsIgnoreCase("yes") && !response4.equalsIgnoreCase("no")) {
@@ -270,44 +280,50 @@ public class Main {
             		}
             		CellVoltage1 = input1.nextDouble();
             }
-           
+
             System.out.println("Would you like to calculate the Watt Hours of your Battery? (yes/no)");
         	response5 = input1.next();
-        	
-        	while(!response5.equalsIgnoreCase("yes") && !response5.equalsIgnoreCase("no")) { 
-        		
-        		System.out.println("Invalid Input. Would you like to calculate the Watt Hours of your Battery? (yes/no)");
-                response5 = input1.next();
-        		
-                if(response5.equalsIgnoreCase("yes")){
-        	        
-                	System.out.println("Enter the number of miliamp hours in your battery: ");
 
-                	while(!input1.hasNextInt()) {
-        	        		System.out.println("Invalid Input. Enter the number of miliamp hours in your battery: ");
-        	        		input1.next();
-        	        	}
-            		mAh = input1.nextInt();
-            		
-        	        		System.out.println("Would you like to calculate the estimated run time of your Battery? (yes/no)");
-        	        		response6 = input1.next();
-          	            	
-        	        		while(!response6.equalsIgnoreCase("yes") && !response6.equalsIgnoreCase("no")) { 
-        	        			System.out.println("Invalid Input. Would you like to calculate the estimated run time of your Battery? (yes/no)");
-            	        		response6 = input1.next();
-        	        		
-        	        			if(response6.equalsIgnoreCase("yes")){
-          	            			Watts1 = 200;
-        	        		}
-          	            		else if(response6.equalsIgnoreCase("no")){
-          	            			Watts1  = 0;
-          	            	}
-        	        	}
-        			}
-        		else if(response5.equalsIgnoreCase("no")){
-    	             mAh1 = 0; 
-    	        }   	
-             }
+        	while(!response5.equalsIgnoreCase("yes") && !response5.equalsIgnoreCase("no")) {
+
+				System.out.println("Invalid Input. Would you like to calculate the Watt Hours of your Battery? (yes/no)");
+				response5 = input1.next();
+			}
+                if(response5.equalsIgnoreCase("yes")){
+
+					System.out.println("Enter the number of miliamp hours in your battery: ");
+
+					while(!input1.hasNextInt()) {
+						System.out.println("Invalid Input. Enter the number of miliamp hours in your battery: ");
+						input1.next();
+					}
+					mAh1 = input1.nextInt();
+
+						System.out.println("Would you like to calculate the estimated run time of your Battery? (yes/no)");
+						response6 = input1.next();
+
+					if(response6.equalsIgnoreCase("yes")) {
+						Watts1 = 200;
+					}
+
+					else if(response6.equalsIgnoreCase("no")){
+						Watts1  = 0;
+					}
+					while(!response6.equalsIgnoreCase("yes") && !response6.equalsIgnoreCase("no")) {
+						System.out.println("Invalid Input. Would you like to calculate the estimated run time of your Battery? (yes/no)");
+						response6 = input1.next();
+
+						if(response6.equalsIgnoreCase("yes")) {
+							Watts1 = 200;
+						}
+						else if(response6.equalsIgnoreCase("no")){
+							Watts1  = 0;
+						}
+					}
+    	        }
+				else if(response5.equalsIgnoreCase("no")){
+					mAh1 = 0;
+				}
             //Do Math
             
             PackVoltage1 = (CellVoltage1 * CellCount1);
@@ -329,9 +345,9 @@ public class Main {
             //RPM = Kv x Voltage
             
             MaxRPM1 = PackVoltage1 * Kv1;
-            MinRPM1 = NominalPackVoltage1 * Kv1;        
-            
-            System.out.println("------");
+            MinRPM1 = NominalPackVoltage1 * Kv1;
+
+			System.out.println("------");
             System.out.println("The theoretical RPM of the first motor (" + Kv + " Kv) with a fully charged " + CellCount + " cell LiPo (" + PackVoltage + " Volts) is " + MaxRPM + " RPM");
             System.out.println("The theoretical RPM of the first motor (" + Kv + " Kv) with a nominal voltage " + CellCount + " cell LiPo (" + NominalPackVoltage + " Volts) is " + MinRPM + " RPM");
             System.out.println("------");
@@ -392,13 +408,15 @@ public class Main {
             	 Watts1 = 200;
             	}
             }
-            
-            response = input.next();
+
+			System.out.println("Would you like to automatically compare the two combonations? (yes/no)");
+
+			response = input.next();
 
             while(!response.equalsIgnoreCase("yes") && !response.equalsIgnoreCase("no")) {
             	System.out.println("Invalid Input. Would you like to automatically compare the two combonations? (yes/no)");
                 response = input.next(); 
-            }            System.out.println("Would you like to automatically compare the two combonations? (yes/no)");
+            }
 
             	if(response.equalsIgnoreCase("yes")) {
             		if(Wh>Wh1) {
@@ -406,9 +424,10 @@ public class Main {
                     	System.out.println("The first battery is " + WhCompare + " Watt Hours greater than seccond battery");
             		}
             		if(Wh1>Wh) {
-            			WhCompare = Wh1 - Wh;
-                		System.out.println("The secconds battery is " + WhCompare + " Watt Hours greater than first battery");
-                    if(MaxRPM > MaxRPM1) {
+						WhCompare = Wh1 - Wh;
+						System.out.println("The secconds battery is " + WhCompare + " Watt Hours greater than first battery");
+					}
+					if(MaxRPM > MaxRPM1) {
                     	RPMCompare = MaxRPM - MaxRPM1;
                         System.out.println("The first battery is " + RPMCompare + " RPM greater than seccond battery");
                 	}
@@ -416,7 +435,7 @@ public class Main {
                     	RPMCompare = MaxRPM1 - MaxRPM;
                         System.out.println("The secconds battery is " + RPMCompare + " RPM greater than first battery");
             		}
-            	}
+
             	      
             
             System.out.println("------");
@@ -424,7 +443,7 @@ public class Main {
               }
             else if(response3.equals("no")){
             System.out.println("Thanks for using my program.");
-              }      
-         }
+              		}      
+         	}
 	}
 }	
