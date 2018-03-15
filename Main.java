@@ -82,7 +82,7 @@ public class Main {
         		CellVoltage = input.nextDouble();
         }
        
-        //Asks weather the user wants to calculate the Watt Hours in their battery
+        //Asks if the user wants to calculate the Watt Hours in their battery
         	
         System.out.println("Would you like to calculate the Watt Hours of your Battery? (yes/no)");
     	response1 = input.next();
@@ -113,9 +113,9 @@ public class Main {
     	        			System.out.println("Invalid Input. Would you like to calculate the estimated run time of your Battery? (yes/no)");
         	        		response2 = input.next();
     	        		
-    	        			if(response2.equalsIgnoreCase("yes")){
-    	        				Watts = 200;
-    	        		}
+    	        			if(response2.equalsIgnoreCase("yes")) {
+								Watts = 200;
+							}
       	            		else if(response2.equalsIgnoreCase("no")){
       	            			Watts  = 0;
       	            	}
